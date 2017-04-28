@@ -1,0 +1,84 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context="exponent.derivedcred.AuthFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/logTextAuth"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/clearLogAuth"
+            android:layout_marginBottom="46dp"
+            android:layout_marginLeft="17dp"
+            android:layout_marginRight="17dp"
+            android:layout_marginTop="15dp"
+            android:fontFamily="serif-monospace"/>
+
+
+        <EditText
+            android:id="@+id/pwdText"
+            style="@style/Widget.AppCompat.AutoCompleteTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Enter PIN"
+            android:inputType="numberPassword"
+            android:selectAllOnFocus="false"
+            android:textAlignment="center"
+            android:visibility="visible"
+            android:layout_below="@+id/textView"
+            android:layout_alignStart="@+id/authPiv"
+            android:layout_alignEnd="@+id/authPiv"/>
+
+        <Button
+            android:id="@+id/clearDownloadsAuth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Clear Downloads"
+            android:layout_below="@+id/textView"
+            android:layout_alignEnd="@+id/logTextAuth"/>
+
+        <Button
+            android:id="@+id/authPiv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/logTextAuth"
+            android:layout_below="@+id/clearDownloadsAuth"
+            android:fontFamily="sans-serif-medium"
+            android:text="Authenticate PIV"/>
+
+        <Button
+            android:id="@+id/clearLogAuth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Clear Log"
+            android:layout_below="@+id/clearDownloadsAuth"
+            android:layout_alignEnd="@+id/clearDownloadsAuth"/>
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="sans-serif"
+            android:text="PIN transmitted through secure Opacity Tunnel"
+            android:textAllCaps="false"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:textColor="?android:attr/colorAccent"
+            android:textSize="17sp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:textStyle="bold"/>
+
+    </RelativeLayout>
+
+</FrameLayout>

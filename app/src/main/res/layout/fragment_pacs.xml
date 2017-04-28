@@ -1,0 +1,62 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context="exponent.derivedcred.PACSFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="17dp"
+            android:layout_marginRight="17dp"
+            android:layout_marginBottom="46dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/radioOpacity"
+            android:id="@+id/pacsLogText"/>
+
+        <Button
+            android:text="Clear Log"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="17dp"
+            android:id="@+id/pacsClearLog"
+            android:layout_alignParentEnd="true"/>
+
+        <Button
+            android:text="Restart OPACITY Service"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/opacButton"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/pacsLogText"
+            android:textAlignment="textStart"/>
+
+        <RadioGroup
+            android:id="@+id/radioOpacity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/opacButton"
+            android:layout_toRightOf="@+id/opacButton">
+
+            <RadioButton
+                android:id="@+id/radio128"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="128 bit"/>
+
+            <RadioButton
+                android:id="@+id/radio192"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="192 bit"/>
+
+        </RadioGroup>
+
+    </RelativeLayout>
+
+</FrameLayout>

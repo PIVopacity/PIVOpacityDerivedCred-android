@@ -1,0 +1,121 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context="exponent.derivedcred.CertFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <TextView
+            android:text="Encryption Flavor:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/gridLayout"
+            android:layout_below="@+id/clearLog"
+            android:layout_marginLeft="17dp"
+            android:layout_marginTop="15dp"
+            android:id="@+id/flavor"
+            android:textAppearance="@style/TextAppearance.AppCompat.Button"
+            android:textAllCaps="false"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:text="Days Valid:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/gridLayout"
+            android:layout_below="@+id/gridLayout"
+            android:layout_marginLeft="17dp"
+            android:layout_marginTop="15dp"
+            android:id="@+id/days"
+            android:textAppearance="@style/TextAppearance.AppCompat.Button"
+            android:textAllCaps="false"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:id="@+id/logText"
+            android:layout_row="1"
+            android:layout_column="1"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="17dp"
+            android:layout_marginRight="17dp"
+            android:layout_marginBottom="46dp"
+            android:layout_below="@+id/flavor"
+            android:layout_alignParentStart="true"
+            android:layout_height="match_parent"
+            android:fontFamily="serif-monospace"/>
+
+        <Button
+            android:text="Clear Log"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/gridLayout"
+            android:layout_below="@+id/gridLayout"
+            android:layout_marginRight="17dp"
+            android:id="@+id/clearLog"/>
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/gridLayout">
+
+            <Space
+                android:layout_width="17dp"
+                android:layout_height="46dp"
+                android:layout_row="1"
+                android:layout_column="0"/>
+
+            <Space
+                android:layout_width="17dp"
+                android:layout_height="46dp"
+                android:layout_row="1"
+                android:layout_column="4"/>
+
+            <Button
+                android:text="Derive Credential"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/deriveKeys"
+                android:layout_row="1"
+                android:layout_column="1"
+                android:fontFamily="sans-serif-medium"/>
+
+            <Button
+                android:text="Clear Downloads"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="1"
+                android:layout_column="3"
+                android:id="@+id/clearDownloads"/>
+
+        </GridLayout>
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="5dp"
+            android:id="@+id/spinner2"
+            android:layout_below="@+id/gridLayout"
+            android:layout_toEndOf="@+id/days"/>
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="5dp"
+            android:id="@+id/spinner3"
+            android:layout_below="@+id/clearLog"
+            android:layout_toEndOf="@+id/flavor"/>
+
+    </RelativeLayout>
+
+</FrameLayout>
