@@ -3,7 +3,7 @@
 ### About ###
 [Exponent, Inc.](http://www.exponent.com) has developed a proof of concept demonstration to show the feasibility of using a derived credential on an NFC-enabled phone for physical access control and authentication.  This demonstration implements a protocol called OPACITY (as defined in [NIST Special Publication 800-73-4](http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-73-4.pdf)) to rapidly establish encrypted contactless communications between an NFC-enabled Android phone and three other types of devices: PIV/CAC cards, a contactless reader connected to a computer, and other NFC-enabled phones.
 
-A video and description of the demostration app functionality can be found on [youtube](https://youtu.be/ftn8-Cth554).
+A video and description of the demonstration app functionality can be found on [YouTube](https://youtu.be/ftn8-Cth554).
 
 A credential is derived on the phone by generating a key pair, associating user information from the PIV/CAC credential with the new key pair, and signing the new credential with the original card's authentication certificate.  All card to mobile communication is protected by the OPACITY secure messaging tunnel.  The public/private key pair for the new derived credential is generated in the protected hardware of the phone, if available, and stored in the native Android KeyStore.  
 
