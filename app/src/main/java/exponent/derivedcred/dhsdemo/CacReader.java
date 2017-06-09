@@ -123,7 +123,11 @@ public class CacReader implements NfcAdapter.ReaderCallback
             return;
         }
         byte[] selectResp=response.data;
-        byte opacFlav=selectResp[response.data.length-4];
+        byte opacFlav=0x00;
+        if(ByteUtil.toHexString(response.data,ByteUtil.toHexString(response.data).toUpperCase().indexOf("AC")/2,response.data.length).toUpperCase().contains("2E"))
+            opacFlav=0x2E;
+        else if(ByteUtil.toHexString(response.data,ByteUtil.toHexString(response.data).toUpperCase().indexOf("AC")/2,response.data.length).toUpperCase().contains("27"))
+            opacFlav=0x27;
 
         // Open an Opacity secure tunnel, receiving the session keys:
 
@@ -308,8 +312,9 @@ public class CacReader implements NfcAdapter.ReaderCallback
                     //Should do Cert CRL check here, will implement at a later date.
                 }catch(Exception ex)
                 {
-                    logger.error(ERROR_TITLE,"PIV Auth. Certificate Invalid! "+ex.toString());
+                    logger.error(ERROR_TITLE,"Stored PIV Auth. Certificate Invalid! "+ex.toString());
                     logger.alert(AUTH_ERROR,ERROR_TITLE);
+                    file.delete();
                     transceiver.close();
                     nfcClose();
                     return;
@@ -478,8 +483,9 @@ public class CacReader implements NfcAdapter.ReaderCallback
                         derivedPivCert.verify(pivCert.getPublicKey());
                     }catch(Exception ex)
                     {
-                        logger.error(ERROR_TITLE,"PIV Auth. Certificate Invalid! "+ex.toString());
+                        logger.error(ERROR_TITLE,"Stored Derived PIV Auth. Certificate Invalid! "+ex.toString());
                         logger.alert(AUTH_ERROR,ERROR_TITLE);
+                        file.delete();
                         transceiver.close();
                         nfcClose();
                         return;

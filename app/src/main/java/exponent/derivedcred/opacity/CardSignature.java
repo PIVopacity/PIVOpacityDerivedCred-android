@@ -19,6 +19,8 @@ Written by Christopher Williams, Ph.D. (cwilliams@exponent.com)
 package exponent.derivedcred.opacity;
 
 import exponent.derivedcred.MainActivity;
+import exponent.derivedcred.dhsdemo.ByteUtil;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
@@ -89,7 +91,8 @@ public class CardSignature
 			id = new byte[8];
 		}
 
-		start = end + 8;
+		//start = end + 8;
+		start = ByteUtil.toHexString(data).toLowerCase().indexOf("5f290180")/2+6; // Modified to make code agnostic to inconsistencies of NIST SP 800-73-4 Part 2, 4.1.5, Table 15 BER-TLV Formatting
 		end = start + (data[start - 1] & 0xff);
 		byte[] issuerId = Arrays.copyOfRange(data, start, end);
 
@@ -142,7 +145,8 @@ public class CardSignature
 			id = new byte[8];
 		}
 
-		start = end + 8;
+		//start = end + 8;
+		start = ByteUtil.toHexString(data).toLowerCase().indexOf("5f290180")/2+6; // Modified to make code agnostic to interpretations of NIST SP 800-73-4 Part 2, 4.1.5 Table 15
 		end = start + (data[start - 1] & 0xff);
 		byte[] issuerId = Arrays.copyOfRange(data, start, end);
 

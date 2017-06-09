@@ -193,6 +193,9 @@ public class OpacitySecureTunnel
 		logger.info(TAG, "[H4] Persistent binding disabled");
 
 
+		//Verify CVC here
+
+
         KeyFactory kf=KeyFactory.getInstance("EC");
 		ECPublicKeySpec keySpec = null;
 		if((opacFlav & 0xFF)==0x2E)
