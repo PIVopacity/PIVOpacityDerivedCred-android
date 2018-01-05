@@ -22,6 +22,8 @@ import exponent.derivedcred.MainActivity;
 import exponent.derivedcred.dhsdemo.ByteUtil;
 import exponent.derivedcred.dhsdemo.Logger;
 import exponent.derivedcred.dhsdemo.Transceiver;
+
+import java.io.ByteArrayInputStream;
 import java.math.BigInteger;
 import java.security.GeneralSecurityException;
 import java.security.KeyFactory;
@@ -30,6 +32,8 @@ import java.security.KeyPairGenerator;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
 import java.security.Signature;
+import java.security.cert.CertificateFactory;
+import java.security.cert.X509Certificate;
 import java.security.interfaces.ECPrivateKey;
 import java.security.interfaces.ECPublicKey;
 import java.security.spec.ECGenParameterSpec;
@@ -54,6 +58,8 @@ public class OpacitySecureTunnel
 	private final static String CARD_COMM_ERROR = "Error communicating with card: check log for details.";
 	private final static String CARD_RESP_ERROR = "Unexpected response from card: check log for details.";
 	private final static String CRYPTO_ERROR = "Cryptography error: check log for details.";
+
+    private final static String GET_SMCERT_SIGNER = "00 CB 3F FF 05 5C 03 5F C1 22 00";
 
 	public Integer TunnelCreationTimer;
 	public CardSignature cardSignature;
@@ -194,6 +200,19 @@ public class OpacitySecureTunnel
 
 
 		//Verify CVC here
+//        X509Certificate smSignerCert;
+//        response = transceiver.transceive("Get Secure Messaging Cert. Signer", GET_SMCERT_SIGNER);
+//        if (null == response)
+//        {
+//            logger.alert(CARD_COMM_ERROR, ERROR_TITLE);
+//            transceiver.close();
+//            return null;
+//        }
+//        CertificateFactory cf = CertificateFactory.getInstance("X.509");
+//        ByteArrayInputStream bis = new ByteArrayInputStream(Arrays.copyOfRange(response.data, 8, 8 + (((response.data[6] & 0xFF) << 8) | (response.data[7] & 0xFF))));
+//        smSignerCert = (X509Certificate) cf.generateCertificate(bis);
+//        logger.info(TAG,"Secure Message Signer:  "+ByteUtil.toHexString(response.data," "));
+//        //logger.info(TAG,"Secure Message Signer:  "+smSignerCert.toString());
 
 
         KeyFactory kf=KeyFactory.getInstance("EC");
@@ -391,7 +410,7 @@ public class OpacitySecureTunnel
 
 			//Create CVC:
 			byte[] Cicc=ByteUtil.concatenate(
-					ByteUtil.hexStringToByteArray("7F 21 5F 29 01 80 42 08"),
+					ByteUtil.hexStringToByteArray("5F 29 01 80 42 08"),
 					ByteUtil.hexStringToByteArray("01 01 01 01 01 01 01 01"), //Issuer ID
 					ByteUtil.hexStringToByteArray("5F 20 10"),
 					ByteUtil.hexStringToByteArray("30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30"), //GUID
@@ -411,6 +430,10 @@ public class OpacitySecureTunnel
 					ByteUtil.hexStringToByteArray("5F 37"),
 					Opacity.berTlvEncodeLen(cvcSig.length),
 					cvcSig);
+
+			Cicc=ByteUtil.concatenate(ByteUtil.hexStringToByteArray("7F 21"),
+					Opacity.berTlvEncodeLen(Cicc.length),
+                    Cicc);
 
 			byte[] IDicc=Arrays.copyOf(digest.digest(Cicc),8);
 
@@ -536,7 +559,7 @@ public class OpacitySecureTunnel
 
 			//Create CVC:
 			byte[] Cicc=ByteUtil.concatenate(
-					ByteUtil.hexStringToByteArray("7F 21 5F 29 01 80 42 08"),
+					ByteUtil.hexStringToByteArray("5F 29 01 80 42 08"),
 					Iid,//Issuer ID
 					//ByteUtil.hexStringToByteArray("01 01 01 01 01 01 01 01"), //Issuer ID
 					ByteUtil.hexStringToByteArray("5F 20 10"),
@@ -544,7 +567,7 @@ public class OpacitySecureTunnel
 					// ByteUtil.hexStringToByteArray("30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30"), //GUID
 					ByteUtil.hexStringToByteArray("7F 49"),
 					ByteUtil.hexStringToByteArray(String.format("%02X 06 05",clientPublicKey.length+8)),
-					ByteUtil.hexStringToByteArray("2B 81 04 00 22"), //Algorithm OID for ECDH P-256
+					ByteUtil.hexStringToByteArray("2B 81 04 00 22"), //Algorithm OID for ECDH P-384
 					ByteUtil.hexStringToByteArray("86 "+String.format("%02X",clientPublicKey.length)),
 					clientPublicKey,
 					ByteUtil.hexStringToByteArray("5F 4C 01 00")
@@ -559,6 +582,10 @@ public class OpacitySecureTunnel
 					ByteUtil.hexStringToByteArray("5F 37"),
 					Opacity.berTlvEncodeLen(cvcSig.length),
 					cvcSig);
+
+            Cicc=ByteUtil.concatenate(ByteUtil.hexStringToByteArray("7F 21"),
+                    Opacity.berTlvEncodeLen(Cicc.length),
+                    Cicc);
 
 			byte[] IDicc=Arrays.copyOf(digest.digest(Cicc),8);
 
